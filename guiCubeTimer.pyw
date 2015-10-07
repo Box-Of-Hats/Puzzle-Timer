@@ -15,19 +15,18 @@ def genscramble(scramblelength):
 	thisScramble = ""
 	n = "P"
 	o = "K"
+	opposites = {
+			'P': 'K',
+			'R': 'L',
+			'L': 'R',
+			'U': 'D',
+			'D': 'U',
+			'B': 'F',
+			'F': 'B',
+	}
+
 	while scramblelength != 0:
-		if n == "R":
-			o = "L"
-		elif n == "L":
-			o = "R"
-		elif n == "D":
-			o = "U"
-		elif n == "U":
-			o = "D"
-		elif n == "F":
-			o = "B"
-		elif n == "B":
-			o = "F"
+		o = opposites[n]
 		moves.remove(n)
 		moves.remove(o)
 		n = random.choice(moves)
@@ -66,7 +65,7 @@ def popTime():
 
 	try:
 		allsolves.pop()
-	except:
+	except IndexError:
 		helpText.set("No Times available to delete.")
 
 	if solveNo != 0:
@@ -84,18 +83,21 @@ def popTime():
 	currentScramble.set(genscramble(20))
 
 def getAverage():
-
 	global allsolves
 	div = 0
 	total = 0
+
 	for score in allsolves:
 		total += score
 		div +=1
+
 	if div != 0:
 		average = total/div
 		average = ("%0.2f" %average)
+
 	else:
 		average = 0.00
+
 	return average
 
 def takeTimer():
@@ -104,14 +106,10 @@ def takeTimer():
 
 	
 	if spacePressNo%2 == 0:
-
 		start = default_timer()
 		lastTime.set("Timing...")
-		
-
-
+	
 	else:
-		
 		duration = default_timer() - start
 		duration = float(duration)
 		start = 0
@@ -124,12 +122,12 @@ def takeTimer():
 
 	spacePressNo += 1
 
-
 def genGraph():
 	global allsolves
 
 	if len(allsolves) <= 1:
 		helpText.set("No times available to create graph.\n(At least 2 times required)")
+
 	else:
 		plt.plot(allsolves,marker="o")
 		plt.ylabel("Seconds")
@@ -154,7 +152,7 @@ if __name__ == "__main__":
 	numberOfSolves.set("Number Of Solves: 0")
 
 	helpText = StringVar()
-	helpText.set("Press H to view HelpText.\nPress G to view a graph of times.\nPress S to get a new scramble.\nPress R to delete your last time.")
+	helpText.set("Press H to view HelpText.\nPress G to view a graph of times.\nPress S to get a new scramble.\nPress D to delete your last time.")
 
 	lastTime = StringVar()
 	lastTime.set("0.00")
