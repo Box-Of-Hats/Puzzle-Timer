@@ -16,13 +16,13 @@ def genscramble(scramblelength):
 	n = "P"
 	o = "K"
 	opposites = {
-			'P': 'K',
-			'R': 'L',
-			'L': 'R',
-			'U': 'D',
-			'D': 'U',
-			'B': 'F',
-			'F': 'B',
+		'P': 'K',
+		'R': 'L',
+		'L': 'R',
+		'U': 'D',
+		'D': 'U',
+		'B': 'F',
+		'F': 'B',
 	}
 
 	while scramblelength != 0:
@@ -51,12 +51,10 @@ def keyPress(event):
     	helpText.set("")
     	popTime()
     	
-
     elif event.char == 'g':
     	helpText.set("")
     	genGraph()
     	
-
     elif event.char == 'h':
     	helpText.set("Press H to view HelpText.\nPress G to view a graph of times.\nPress S to get a new scramble.\nPress D to delete your last time.")
 
@@ -71,9 +69,7 @@ def popTime():
 	if solveNo != 0:
 		solveNo -= 1
 
-
 	currentAverage.set("Current Average: " + str(getAverage()))
-
 
 	if len(allsolves) <=1:
 		lastTime.set("0.00")
@@ -101,10 +97,8 @@ def getAverage():
 	return average
 
 def takeTimer():
-
 	global spacePressNo, start, allsolves, lastTime,solveNo
 
-	
 	if spacePressNo%2 == 0:
 		start = default_timer()
 		lastTime.set("Timing...")
@@ -137,8 +131,6 @@ def genGraph():
 
 if __name__ == "__main__":
 
-	
-
 	root = Tk()
 
 	currentScramble = StringVar()
@@ -146,7 +138,6 @@ if __name__ == "__main__":
 
 	currentAverage = StringVar()
 	currentAverage.set("Current Average: 0.00")
-
 
 	numberOfSolves = StringVar()
 	numberOfSolves.set("Number Of Solves: 0")
@@ -167,7 +158,6 @@ if __name__ == "__main__":
 	Label(frame,text=" ").grid(row=6,column=3)
 	Label(frame,textvariable=lastTime,font=("bold",30)).grid(row=8,column=3)
 	Label(frame,textvariable=helpText,font=16).grid(row=12,column=3)
-
 
 	frame.bind("<Key>", keyPress)
 	frame.focus_set()
